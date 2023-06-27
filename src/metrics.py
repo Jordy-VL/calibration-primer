@@ -11,7 +11,7 @@ import sklearn.utils.validation
 from dataclasses import dataclass
 from functools import cached_property
 from typing import Any
-
+import pandas as pd
 import numpy as np
 import numpy.typing as npt
 from sklearn import metrics as skm
@@ -421,22 +421,22 @@ def aurc(stats_cache: StatsCache):
     return sum([(risks[i] + risks[i + 1]) * 0.5 * weights[i] for i in range(len(weights))]) * AURC_DISPLAY_SCALE
 
 
-def aurc_logits(references, predictions, plot=False, get_cache=False):
-    if not np.isclose(np.sum(references), len(references)):
-        references = (np.argmax(predictions, -1) == references).astype(int)  # correctness
+def aurc_logits(references, predictions, plot=False, get_cache=False, use_as_is=False):
+    
+    if not use_as_is:
+        if not np.isclose(np.sum(references), len(references)):
+            references = (np.argmax(predictions, -1) == references).astype(int)  # correctness
 
-    if not np.isclose(np.sum(predictions), len(predictions)):
-        predictions = scipy.special.softmax(predictions, axis=-1), -1
+        if not np.isclose(np.sum(predictions), len(predictions)):
+            predictions = scipy.special.softmax(predictions, axis=-1)
 
-    if predictions.ndim == 2:
-        predictions = np.max(predictions, -1)
+        if predictions.ndim == 2:
+            predictions = np.max(predictions, -1)
 
     cache = StatsCache(confids=predictions, correct=references)
 
     if plot:
         coverages, risks, weights = cache.rc_curve_stats
-        import pandas as pd
-
         pd.options.plotting.backend = "plotly"
         df = pd.DataFrame(zip(coverages, risks, weights), columns=["% Coverage", "% Risk", "weights"])
         fig = df.plot(x="% Coverage", y="% Risk")
@@ -447,16 +447,23 @@ def aurc_logits(references, predictions, plot=False, get_cache=False):
     return aurc(cache)  # {"aurc": aurc(cache), "cache": cache}
 
 
-def multi_aurc_plot(caches, names):
-    import pandas as pd
-
+def multi_aurc_plot(caches, names, aurcs=None, verbose=False):
     pd.options.plotting.backend = "plotly"
     df = pd.DataFrame()
     for cache, name in zip(caches, names):
         coverages, risks, weights = cache.rc_curve_stats
         df[name] = pd.Series(risks, index=coverages)
-    print(df.head())
+    if verbose:
+        print(df.head(), df.index, df.columns)
     fig = df.plot()
+    title = ""
+    if aurcs is not None:
+        title = "AURC: " + ' - '.join([str(round(aurc, 4)) for aurc in aurcs])
+    fig.update_layout(
+    title=title,
+    xaxis_title="% Coverage",
+    yaxis_title="% Risk"
+)
     fig.show()
 
 
