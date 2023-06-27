@@ -1,0 +1,17 @@
+data/ICDAR2021/978-3-030-86331-9.pdf
+data/ICDAR2021/978-3-030-86331-9.txt
+data/ICDAR2021/978-3-030-86334-0.pdf
+data/ICDAR2021/978-3-030-86334-0.txt
+data/ICDAR2021/978-3-030-86337-1.pdf
+data/ICDAR2021/978-3-030-86337-1.txt
+data/ICDAR2021/978-3-030-86549-8.pdf
+data/ICDAR2021/978-3-030-86549-8.txt
+data/bert-base-cased_conll2003-sm-first-ner_test_UTY.pickle
+data/bert-base-cased_conll2003-sm-first-ner_train_UTY.pickle
+data/bert-base-cased_conll2003-sm-first-ner_validation_UTY.pickle
+data/credit.csv
+data/example_credit.ipynb
+src/__pycache__/generic_scaling.cpython-38.pyc
+src/__pycache__/metrics.cpython-38.pyc
+src/abstract_ternary.png
+src/dump/dump.py
