@@ -239,7 +239,7 @@ def average_confidence(y, p_hat):
 def weighted_abs_conf_difference(y, p_hat):
     """
     Computes the weighted absolute difference between over and underconfidence.
-
+aurc, cache
     Parameters
     ----------
     y : array-like
@@ -455,6 +455,7 @@ def multi_aurc_plot(caches, names):
     for cache, name in zip(caches, names):
         coverages, risks, weights = cache.rc_curve_stats
         df[name] = pd.Series(risks, index=coverages)
+    print(df.head())
     fig = df.plot()
     fig.show()
 
