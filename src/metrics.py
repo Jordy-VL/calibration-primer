@@ -440,11 +440,10 @@ def aurc_logits(references, predictions, plot=False, get_cache=False, use_as_is=
         pd.options.plotting.backend = "plotly"
         df = pd.DataFrame(zip(coverages, risks, weights), columns=["% Coverage", "% Risk", "weights"])
         fig = df.plot(x="% Coverage", y="% Risk")
-        # https://stackoverflow.com/questions/64371174/plotly-how-to-change-variable-label-names-for-the-legend-in-a-plotly-express-li
         fig.show()
     if get_cache:
         return {"aurc": aurc(cache), "cache": cache}
-    return aurc(cache)  # {"aurc": aurc(cache), "cache": cache}
+    return aurc(cache) 
 
 
 def multi_aurc_plot(caches, names, aurcs=None, verbose=False):
