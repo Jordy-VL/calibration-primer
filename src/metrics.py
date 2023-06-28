@@ -238,19 +238,19 @@ def average_confidence(y, p_hat):
 
 def weighted_abs_conf_difference(y, p_hat):
     """
-    Computes the weighted absolute difference between over and underconfidence.
-aurc, cache
-    Parameters
-    ----------
-    y : array-like
-        Ground truth labels. Here a dummy variable for cross validation.
-    p_hat : array-like
-        Array of confidence estimates.
+        Computes the weighted absolute difference between over and underconfidence.
+    aurc, cache
+        Parameters
+        ----------
+        y : array-like
+            Ground truth labels. Here a dummy variable for cross validation.
+        p_hat : array-like
+            Array of confidence estimates.
 
-    Returns
-    -------
-    weighted_abs_diff: float
-        Accuracy weighted absolute difference between over and underconfidence.
+        Returns
+        -------
+        weighted_abs_diff: float
+            Accuracy weighted absolute difference between over and underconfidence.
     """
     y_pred = np.argmax(p_hat, axis=1)
     of = overconfidence(y, p_hat)
@@ -422,7 +422,6 @@ def aurc(stats_cache: StatsCache):
 
 
 def aurc_logits(references, predictions, plot=False, get_cache=False, use_as_is=False):
-    
     if not use_as_is:
         if not np.isclose(np.sum(references), len(references)):
             references = (np.argmax(predictions, -1) == references).astype(int)  # correctness
@@ -443,7 +442,7 @@ def aurc_logits(references, predictions, plot=False, get_cache=False, use_as_is=
         fig.show()
     if get_cache:
         return {"aurc": aurc(cache), "cache": cache}
-    return aurc(cache) 
+    return aurc(cache)
 
 
 def multi_aurc_plot(caches, names, aurcs=None, verbose=False):
@@ -457,12 +456,8 @@ def multi_aurc_plot(caches, names, aurcs=None, verbose=False):
     fig = df.plot()
     title = ""
     if aurcs is not None:
-        title = "AURC: " + ' - '.join([str(round(aurc, 4)) for aurc in aurcs])
-    fig.update_layout(
-    title=title,
-    xaxis_title="% Coverage",
-    yaxis_title="% Risk"
-)
+        title = "AURC: " + " - ".join([str(round(aurc, 4)) for aurc in aurcs])
+    fig.update_layout(title=title, xaxis_title="% Coverage", yaxis_title="% Risk")
     fig.show()
 
 
