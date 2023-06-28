@@ -6,10 +6,15 @@ It contains the code to reproduce the experiments and examples from the presenta
 
 
 `src/` 
+
     `intuition_calibration.ipynb` is the main notebook containing examples of how to use the calibration and failure prediction modules
+
     `metrics.py` contains implementations metrics of interest
+
     `generic_scaling.py` contains basic implementations of Platt Scaling and Temperature Scaling
+
     `check_ICDAR_proceedings.ipynb` contains the code to reproduce the keyword search on the ICDAR 2021 Proceedings 
+    
     
 `data/` contains different model logits and references
 
