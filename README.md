@@ -4,6 +4,7 @@ This GitHub repository accompanies the (CVC seminar)[https://www.cvc.uab.es/blog
 
 It contains the code to reproduce the experiments and examples from the presentation.
 
+See here for the (slides)[https://jordy-vl.github.io/assets/230630_CVC-Seminar-JVL.pdf].
 
 `src/` 
 
